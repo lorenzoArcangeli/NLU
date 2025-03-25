@@ -1,6 +1,6 @@
-from LM.Part_1.utils.classes import *
+from utils.classes import *
 from models import *
-from LM.Part_1.utils.functions import * 
+from utils.functions import * 
 import os
 import copy
 import numpy as np
