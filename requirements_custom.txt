@@ -1,0 +1,6 @@
+ipykernel
+scikit-learn
+nltk
+spacy
+torch
+matplotlib
