@@ -16,14 +16,15 @@ if __name__ == "__main__":
     # Device
     DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
 
+
     # HYPERPARAMETERS
     config = {
-        "batch_size_train": 64,
+        "batch_size_train": 32,
         "batch_size_dev": 128,
         "batch_size_test": 128,
-        "hid_size": 300,
-        "emb_size": 400,
-        "lr": 0.01,
+        "hid_size": 400,
+        "emb_size": 500,
+        "lr": 0.001, # 3 with SGD, 0.001 with adamw
         "clip": 5, # normalize the gradient if >5
         "n_epochs": 100,
         "patience": 3
@@ -73,14 +74,12 @@ if __name__ == "__main__":
     best_ppl = math.inf
     best_model = None   
     pbar = tqdm(range(1, config["n_epochs"] + 1))
-    final_epoch = 0
-
+    
     # Training loop
     for epoch in pbar:
         # Train
-        final_epoch = epoch
-        ppl_train, loss_train = train_loop(train_loader, optimizer, criterion_train, model, config["clip"])
-        ppl_train_list.append(ppl_train)
+        loss_train = train_loop(train_loader, optimizer, criterion_train, model, config["clip"])
+        ppl_train_list.append(loss_train)
         
         # Evaluate
         if epoch % 1 == 0:
@@ -91,7 +90,7 @@ if __name__ == "__main__":
             ppl_dev_list.append(ppl_dev)
             losses_dev.append(np.asarray(loss_dev).mean())
             
-            pbar.set_description(f"PPL: {ppl_dev:.6f}")
+            pbar.set_description(f"PPL: {ppl_dev:.4f}")
             
             # Early stopping
             if ppl_dev < best_ppl:
@@ -112,4 +111,4 @@ if __name__ == "__main__":
     # Save results
     name_exercise = "Prova"
     save_result(name_exercise, sampled_epochs, losses_train, losses_dev, ppl_train_list, ppl_dev_list, 
-                final_epoch, best_ppl, final_ppl, optimizer, model, best_model, config)
+                best_ppl, final_ppl, optimizer, model, best_model, config)

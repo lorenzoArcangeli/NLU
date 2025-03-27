@@ -73,6 +73,7 @@ def eval_loop(data, eval_criterion, model):
             
     ppl = math.exp(sum(loss_array) / sum(number_of_tokens))
     loss_to_return = sum(loss_array) / sum(number_of_tokens)
+    # here return the sum of the loss, not the mean
     return ppl, loss_to_return
 
 def init_weights(mat):
@@ -96,7 +97,7 @@ def init_weights(mat):
                     m.bias.data.fill_(0.01)
     
 def save_result(name_exercise, sampled_epochs, losses_train, losses_dev, ppl_train_list, ppl_dev_list, 
-                final_epoch, best_ppl, final_ppl, optimizer, model, best_model, config):
+                best_ppl, final_ppl, optimizer, model, best_model, config):
     # Create a folder
     current_dir = os.path.dirname(os.path.abspath(__file__))
     folder_path = os.path.join(current_dir, "results")
