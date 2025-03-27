@@ -24,7 +24,7 @@ if __name__ == "__main__":
         "batch_size_test": 128,
         "hid_size": 400,
         "emb_size": 500,
-        "lr": 0.001, # 3 with SGD, 0.001 with adamw
+        "lr": 3, # 3 with SGD, 0.001 with adamw
         "clip": 5, # normalize the gradient if >5
         "n_epochs": 100,
         "patience": 3
