@@ -6,3 +6,4 @@ PART 1
 PART 2
     LSTM + TYING WEIGHTS: 115.55126846475622
     LSTM + variational dropout: 91.2675896220829
+    LSTM + variational dropout + ASDG
