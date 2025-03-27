@@ -109,6 +109,6 @@ if __name__ == "__main__":
     print('Test ppl: ', final_ppl)
 
     # Save results
-    name_exercise = "Prova"
+    name_exercise = "1_1"
     save_result(name_exercise, sampled_epochs, losses_train, losses_dev, ppl_train_list, ppl_dev_list, 
                 best_ppl, final_ppl, optimizer, model, best_model, config)
