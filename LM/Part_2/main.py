@@ -60,31 +60,29 @@ if __name__ == "__main__":
     model = LM_LSTM_VARIATIONAL_DROPOUT(config["emb_size"], config["hid_size"], vocab_len, pad_index=lang.word2id["<pad>"]).to(DEVICE)
     model.apply(init_weights)
 
-    optimizer = optim.SGD(model.parameters(), lr=config["lr"])
-    #optimizer = optim.AdamW(model.parameters(), lr=config["lr"])
+    opt_method = optim.SGD(model.parameters(), lr=config["lr"])
+    #opt_method = optim.AdamW(model.parameters(), lr=config["lr"])
     criterion_train = nn.CrossEntropyLoss(ignore_index=lang.word2id["<pad>"])
     criterion_eval = nn.CrossEntropyLoss(ignore_index=lang.word2id["<pad>"], reduction='sum')
 
     patience = 3 # Early stopping
-    losses_train = [] # Store the losses
-    losses_dev = []
-    ppl_dev_list = [] # Store the perplexity
-    ppl_train_list = []
-    sampled_epochs = [] # Store the epochs
+    train_loss_values = [] # Store the losses
+    dev_loss_values = []
+    dev_ppl_values = [] # Store the perplexity
+    train_ppl_values = []
+    epochs = [] # Store the epochs
     best_ppl = math.inf
     best_model = None   
     pbar = tqdm(range(1, config["n_epochs"] + 1))
-    final_epoch = 0
     window=3 # in the paper is =3 but here the patience i 3, so window>3 is no sense
 
     # Training loop
     for epoch in pbar:
         # Train
-        final_epoch = epoch
         loss_train = train_loop(train_loader, optimizer, criterion_train, model, config["clip"])
-        ppl_train_list.append(loss_train)
-        sampled_epochs.append(epoch)
-        losses_train.append(np.asarray(loss_train).mean())
+        train_ppl_values.append(loss_train)
+        epochs.append(epoch)
+        train_loss_values.append(np.asarray(loss_train).mean())
         
         #param_group → list of dict → each dict is a group of parameters
         # if AvSG
@@ -97,10 +95,10 @@ if __name__ == "__main__":
                 #ax → contain the mean of the model parameters
                 prm.data = optimizer.state[prm]['ax'].clone()
 
-            #EVALIATE              
+            #EVALUATE              
             ppl_dev, loss_dev = eval_loop(dev_loader, criterion_eval, model)
-            ppl_dev_list.append(ppl_dev)
-            losses_dev.append(np.asarray(loss_dev).mean())
+            dev_ppl_values.append(ppl_dev)
+            dev_loss_values.append(np.asarray(loss_dev).mean())
                 
             pbar.set_description(f"ASGD= {'t0' in optimizer.param_groups[0]}\tPPL: {ppl_dev:.4f}")
             
@@ -110,24 +108,24 @@ if __name__ == "__main__":
 
         else:              
             ppl_dev, loss_dev = eval_loop(dev_loader, criterion_eval, model)
-            ppl_dev_list.append(ppl_dev)
-            losses_dev.append(np.asarray(loss_dev).mean())
+            dev_ppl_values.append(ppl_dev)
+            dev_loss_values.append(np.asarray(loss_dev).mean())
                 
             pbar.set_description(f"ASGD= {'t0' in optimizer.param_groups[0]}\tPPL: {ppl_dev:.4f}")
 
-            if (len(ppl_dev_list)>window and ppl_dev > min(ppl_dev_list[:-window])):
+            if (len(dev_ppl_values)>window and ppl_dev > min(dev_ppl_values[:-window])):
                 print('Switching to ASGD')
                 optimizer = torch.optim.ASGD(model.parameters(), lr=config["lr"], t0=0, lambd=0., weight_decay=1.2e-6,)
 
-            if  ppl_dev < best_ppl: 
-                    best_ppl = ppl_dev
-                    best_model = copy.deepcopy(model).to('cpu')
-                    patience = 3
-            else: 
-                patience -= 1
-                    
-            if patience <= 0: # Early stopping
-                break
+        if  ppl_dev < best_ppl: 
+                best_ppl = ppl_dev
+                best_model = copy.deepcopy(model).to('cpu')
+                patience = 3
+        else: 
+            patience -= 1
+                
+        if patience <= 0: # Early stopping
+            break
                 
 
     # Test
@@ -136,6 +134,7 @@ if __name__ == "__main__":
     print('Test ppl: ', final_ppl)
 
     # Save results
-    name_exercise = "Prova"
-    save_result(name_exercise, sampled_epochs, losses_train, losses_dev, ppl_train_list, ppl_dev_list, 
-                best_ppl, final_ppl, optimizer, model, best_model, config)
+    task_name = "Test"
+    store_result(task_name, epochs, train_loss_values, dev_loss_values, 
+                         train_ppl_values, dev_ppl_values, best_ppl, final_ppl, 
+                         opt_method, model, best_model, config)

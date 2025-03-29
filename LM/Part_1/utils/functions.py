@@ -95,45 +95,51 @@ def init_weights(mat):
                 torch.nn.init.uniform_(m.weight, -0.01, 0.01)
                 if m.bias != None:
                     m.bias.data.fill_(0.01)
-    
-def save_result(name_exercise, sampled_epochs, losses_train, losses_dev, ppl_train_list, ppl_dev_list, 
-                best_ppl, final_ppl, optimizer, model, best_model, config):
-    # Create a folder
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    folder_path = os.path.join(current_dir, "results")
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
-    num_folders = len([name for name in os.listdir(folder_path) if name.startswith(name_exercise)])
-    title = f"{name_exercise}_test_{num_folders + 1}_PPL_{int(final_ppl)}"
-    folder_path = os.path.join(folder_path, title)
-    os.makedirs(folder_path, exist_ok=True)
 
+
+def store_result(task_name, epochs, train_loss_values, dev_loss_values, 
+                         train_ppl_values, dev_ppl_values, best_ppl, final_ppl, 
+                         opt_method, model, best_model, config):
+    # Set up directory structure
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    results_dir = os.path.join(base_path, "experiment_results")
+    if not os.path.exists(results_dir):
+        os.makedirs(results_dir)
+    
+    # Generate unique folder name
+    existing_experiments = len([x for x in os.listdir(results_dir) if x.startswith(task_name)])
+    experiment_title = f"{task_name}_run_{existing_experiments + 1}_PPL_{int(final_ppl)}"
+    experiment_path = os.path.join(results_dir, experiment_title)
+    os.makedirs(experiment_path, exist_ok=True)
+
+    # Plot and save loss curves
     plt.figure()
-    plt.plot(sampled_epochs, losses_train, '-', label='Train')
-    plt.plot(sampled_epochs, losses_dev, '-', label='Dev')
-    plt.xlabel('Epochs')
+    plt.plot(epochs, train_loss_values, '-', label='Training')
+    plt.plot(epochs, dev_loss_values, '-', label='Development')
+    plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.legend()
-    plt.savefig(os.path.join(folder_path, "LOSS_TRAIN_vs_DEV.pdf"))
+    plt.savefig(os.path.join(experiment_path, "Loss_Training_vs_Dev.pdf"))
 
+    # Plot and save perplexity curves
     plt.figure()
-    plt.plot(sampled_epochs, ppl_train_list, '-', label='Train')
-    plt.plot(sampled_epochs, ppl_dev_list, '-', label='Dev')
+    plt.plot(epochs, train_ppl_values, '-', label='Training')
+    plt.plot(epochs, dev_ppl_values, '-', label='Development')
     plt.xlabel('Epochs')
-    plt.ylabel('PPL')
+    plt.ylabel('Perplexity')
     plt.legend()
-    plt.savefig(os.path.join(folder_path, "PPL_TRAIN_vs_DEV.pdf"))
+    plt.savefig(os.path.join(experiment_path, "Perplexity_Training_vs_Dev.pdf"))
 
-    # Create a text file and save it in the folder_path with the training parameters
-    file_path = os.path.join(folder_path, "training_parameters.txt")
-    with open(file_path, "w") as file:
-        file.write(f"{name_exercise}\n\n")
-        for key, value in config.items():
-            file.write(f"{key}: {value}\n")
-        file.write(f"Best Dev PPL: {best_ppl}\n")
-        file.write(f"Best Test PPL: {final_ppl}\n")
-        file.write(f"Optimizer: {optimizer}\n")
-        file.write(f"Model: {model}\n")
+    # Save training details to text file
+    output_file = os.path.join(experiment_path, "experiment_details.txt")
+    with open(output_file, "w") as f:
+        f.write(f"Experiment: {task_name}\n\n")
+        for param_name, param_value in config.items():
+            f.write(f"{param_name} = {param_value}\n")
+        f.write(f"Optimal Dev Perplexity: {best_ppl}\n")
+        f.write(f"Final Test Perplexity: {final_ppl}\n")
+        f.write(f"Optimization Method: {opt_method}\n")
+        f.write(f"Model Type: {model}\n")
 
-    # To save the model
-    torch.save(best_model.state_dict(), os.path.join(folder_path, "model.pt"))
+    # Save the best model parameters
+    torch.save(best_model.state_dict(), os.path.join(experiment_path, "trained_model.pt"))

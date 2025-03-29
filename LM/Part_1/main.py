@@ -16,7 +16,6 @@ if __name__ == "__main__":
     # Device
     DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-
     # HYPERPARAMETERS
     config = {
         "batch_size_train": 32,
@@ -52,7 +51,6 @@ if __name__ == "__main__":
     test_loader = DataLoader(test_dataset, batch_size=config["batch_size_test"], 
                              collate_fn=partial(collate_fn, pad_token=lang.word2id["<pad>"]))
 
-    # Get vocab length
     vocab_len = len(lang.word2id)
 
     # TRAINING
@@ -60,17 +58,17 @@ if __name__ == "__main__":
     #model = LM_LSTM(config["emb_size"], config["hid_size"], vocab_len, pad_index=lang.word2id["<pad>"]).to(DEVICE)
     model.apply(init_weights)
 
-    optimizer = optim.SGD(model.parameters(), lr=config["lr"])
-    #optimizer = optim.AdamW(model.parameters(), lr=config["lr"])
+    opt_method = optim.SGD(model.parameters(), lr=config["lr"])
+    #opt_method = optim.AdamW(model.parameters(), lr=config["lr"])
     criterion_train = nn.CrossEntropyLoss(ignore_index=lang.word2id["<pad>"])
     criterion_eval = nn.CrossEntropyLoss(ignore_index=lang.word2id["<pad>"], reduction='sum')
 
     patience = 3 # Early stopping
-    losses_train = [] # Store the losses
-    losses_dev = []
-    ppl_dev_list = [] # Store the perplexity
-    ppl_train_list = []
-    sampled_epochs = [] # Store the epochs
+    train_loss_values = [] # Store the losses
+    dev_loss_values = []
+    dev_ppl_values = [] # Store the perplexity
+    train_ppl_values = []
+    epochs = [] # Store the epochs
     best_ppl = math.inf
     best_model = None   
     pbar = tqdm(range(1, config["n_epochs"] + 1))
@@ -78,17 +76,17 @@ if __name__ == "__main__":
     # Training loop
     for epoch in pbar:
         # Train
-        loss_train = train_loop(train_loader, optimizer, criterion_train, model, config["clip"])
-        ppl_train_list.append(loss_train)
+        loss_train = train_loop(train_loader, opt_method, criterion_train, model, config["clip"])
+        train_ppl_values.append(loss_train)
         
         # Evaluate
         if epoch % 1 == 0:
-            sampled_epochs.append(epoch)
-            losses_train.append(np.asarray(loss_train).mean())
+            epochs.append(epoch)
+            train_loss_values.append(np.asarray(loss_train).mean())
             
             ppl_dev, loss_dev = eval_loop(dev_loader, criterion_eval, model)
-            ppl_dev_list.append(ppl_dev)
-            losses_dev.append(np.asarray(loss_dev).mean())
+            dev_ppl_values.append(ppl_dev)
+            dev_loss_values.append(np.asarray(loss_dev).mean())
             
             pbar.set_description(f"PPL: {ppl_dev:.4f}")
             
@@ -101,7 +99,7 @@ if __name__ == "__main__":
                 patience -= 1
 
             if patience <= 0:
-                break  # Early stopping
+                break
 
     # Test
     best_model.to(DEVICE)
@@ -109,6 +107,7 @@ if __name__ == "__main__":
     print('Test ppl: ', final_ppl)
 
     # Save results
-    name_exercise = "1_1"
-    save_result(name_exercise, sampled_epochs, losses_train, losses_dev, ppl_train_list, ppl_dev_list, 
-                best_ppl, final_ppl, optimizer, model, best_model, config)
+    task_name = "1_1"
+    store_result(task_name, epochs, train_loss_values, dev_loss_values, 
+                         train_ppl_values, dev_ppl_values, best_ppl, final_ppl, 
+                         opt_method, model, best_model, config)

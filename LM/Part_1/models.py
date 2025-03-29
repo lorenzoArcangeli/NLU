@@ -22,8 +22,8 @@ class LM_LSTM(nn.Module):
     
 #PART A.2
 class LM_LSTM_DROP(nn.Module):
-    def __init__(self, emb_size, hidden_size, output_size, pad_index=0, out_dropout=0.6,
-                 emb_dropout=0.6, n_layers=1):
+    def __init__(self, emb_size, hidden_size, output_size, pad_index=0, out_dropout=0.5,
+                 emb_dropout=0.3, n_layers=1):
         super(LM_LSTM_DROP, self).__init__()
         # Token ids to vectors
         self.embedding = nn.Embedding(output_size, emb_size, padding_idx=pad_index)
