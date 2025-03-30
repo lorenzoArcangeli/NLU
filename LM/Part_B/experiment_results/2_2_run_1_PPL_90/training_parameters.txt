@@ -1,0 +1,31 @@
+2_2-2
+
+batch_size_train: 32
+batch_size_dev: 128
+batch_size_test: 128
+hid_size: 500
+emb_size: 500
+lr: 3
+clip: 5
+n_epochs: 100
+patience: 3
+Best Dev PPL: 92.73477485058447
+Best Test PPL: 90.398044963884
+Optimizer: SGD (
+Parameter Group 0
+    dampening: 0
+    differentiable: False
+    foreach: None
+    lr: 3
+    maximize: False
+    momentum: 0
+    nesterov: False
+    weight_decay: 0
+)
+Model: LM_LSTM_VARIATIONAL_DROPOUT(
+  (embedding): Embedding(10001, 500, padding_idx=0)
+  (emb_var_dropout): VariationalDropoutLayer() - 0.5
+  (lstm): LSTM(500, 500, batch_first=True)
+  (out_var_dropout): VariationalDropoutLayer() - 0.7
+  (output): Linear(in_features=500, out_features=10001, bias=True)
+)

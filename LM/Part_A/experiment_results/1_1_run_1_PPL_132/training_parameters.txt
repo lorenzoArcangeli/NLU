@@ -1,0 +1,29 @@
+1_1
+
+batch_size_train: 32
+batch_size_dev: 128
+batch_size_test: 128
+hid_size: 400
+emb_size: 500
+lr: 3
+clip: 5
+n_epochs: 100
+patience: 3
+Best Dev PPL: 136.7098902140654
+Best Test PPL: 132.2828817925681
+Optimizer: SGD (
+Parameter Group 0
+    dampening: 0
+    differentiable: False
+    foreach: None
+    lr: 3
+    maximize: False
+    momentum: 0
+    nesterov: False
+    weight_decay: 0
+)
+Model: LM_LSTM(
+  (embedding): Embedding(10001, 500, padding_idx=0)
+  (lstm): LSTM(500, 400, batch_first=True)
+  (output): Linear(in_features=400, out_features=10001, bias=True)
+)

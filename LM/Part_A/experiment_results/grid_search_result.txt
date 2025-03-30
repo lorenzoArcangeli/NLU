@@ -1,0 +1,280 @@
+GRID_SEARCH_RESULT: 
+grid_search_params = {
+    "batch_size_train": [32, 64],
+    "batch_size_dev": [128],  
+    "batch_size_test": [128], 
+    "hid_size": [100, 200, 300],
+    "emb_size": [200, 300, 400],
+    "lr": [0.1, 1.0, 3.0],
+    "clip": [5],
+    "n_epochs": [20],  
+    "patience": [3]     
+}
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:13<?, ?it/s]
+Test PPL for this config: 755.4706440770193
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 200, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 164.8989: 100%|██████████| 20/20 [04:44<00:00, 14.21s/it]
+Test PPL for this config: 157.38144810553783
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 200, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 152.2257:  90%|█████████ | 18/20 [04:34<00:30, 15.25s/it]
+Test PPL for this config: 145.36068723850966
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:14<?, ?it/s]
+Test PPL for this config: 747.1215583675737
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 300, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 160.9383: 100%|██████████| 20/20 [04:52<00:00, 14.65s/it]
+Test PPL for this config: 154.5989335543884
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 300, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 153.0106:  80%|████████  | 16/20 [04:08<01:02, 15.50s/it]
+Test PPL for this config: 145.31820871734135
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:14<?, ?it/s]
+Test PPL for this config: 720.6984018366295
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 400, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 159.3253: 100%|██████████| 20/20 [04:57<00:00, 14.88s/it]
+Test PPL for this config: 151.11692122414476
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 400, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 152.9946:  70%|███████   | 14/20 [03:45<01:36, 16.09s/it]
+Test PPL for this config: 144.3216493747052
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:19<?, ?it/s]
+Test PPL for this config: 676.2462867384119
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 200, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 148.4600: 100%|██████████| 20/20 [06:29<00:00, 19.47s/it]
+Test PPL for this config: 142.27675057488528
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 200, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 146.9045:  50%|█████     | 10/20 [03:34<03:34, 21.40s/it]
+Test PPL for this config: 139.14793036938778
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:19<?, ?it/s]
+Test PPL for this config: 661.6777967050466
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 300, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 146.7470:  90%|█████████ | 18/20 [06:16<00:41, 20.90s/it]
+Test PPL for this config: 140.5498272785476
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 300, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 145.1700:  50%|█████     | 10/20 [03:38<03:38, 21.81s/it]
+Test PPL for this config: 137.27400140882557
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:20<?, ?it/s]
+Test PPL for this config: 649.1237542296706
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 400, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 147.3932:  70%|███████   | 14/20 [05:03<02:10, 21.68s/it]
+Test PPL for this config: 140.99009949690256
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 400, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 145.7558:  50%|█████     | 10/20 [03:42<03:42, 22.27s/it]
+Test PPL for this config: 137.37867309256325
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:23<?, ?it/s]
+Test PPL for this config: 635.8157318738915
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 200, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 148.2224:  75%|███████▌  | 15/20 [06:21<02:07, 25.45s/it]
+Test PPL for this config: 141.7595796916604
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 200, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 148.0719:  40%|████      | 8/20 [03:34<05:21, 26.81s/it]
+Test PPL for this config: 137.94605643025247
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:24<?, ?it/s]
+Test PPL for this config: 617.4764213033533
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 300, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 146.6181:  75%|███████▌  | 15/20 [06:32<02:10, 26.14s/it]
+Test PPL for this config: 138.4060562075995
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 300, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 146.9450:  40%|████      | 8/20 [03:41<05:31, 27.65s/it]
+Test PPL for this config: 134.65431803108328
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:25<?, ?it/s]
+Test PPL for this config: 608.3767384630405
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 400, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 147.3597:  70%|███████   | 14/20 [06:17<02:41, 26.97s/it]
+Test PPL for this config: 138.49789914326627
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 400, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 143.6353:  35%|███▌      | 7/20 [03:21<06:14, 28.84s/it]
+Test PPL for this config: 133.42645947229715
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:15<?, ?it/s]
+Test PPL for this config: 1139.6260677364892
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 200, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 189.0170: 100%|██████████| 20/20 [05:00<00:00, 15.04s/it]
+Test PPL for this config: 180.59337463118138
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 200, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 162.6024: 100%|██████████| 20/20 [05:01<00:00, 15.06s/it]
+Test PPL for this config: 153.3275870349355
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:15<?, ?it/s]
+Test PPL for this config: 1117.8699865428907
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 300, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 180.8779: 100%|██████████| 20/20 [05:03<00:00, 15.19s/it]
+Test PPL for this config: 173.5654808019791
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 300, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 157.5536: 100%|██████████| 20/20 [05:03<00:00, 15.19s/it]
+Test PPL for this config: 147.90072586681728
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:15<?, ?it/s]
+Test PPL for this config: 1125.7536298596663
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 400, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 178.7531: 100%|██████████| 20/20 [05:07<00:00, 15.40s/it]
+Test PPL for this config: 170.52654722128108
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 100, 'emb_size': 400, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 154.2581: 100%|██████████| 20/20 [05:08<00:00, 15.43s/it]
+Test PPL for this config: 147.37468556313596
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:19<?, ?it/s]
+Test PPL for this config: 952.8645673322632
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 200, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 160.8079: 100%|██████████| 20/20 [06:31<00:00, 19.59s/it]
+Test PPL for this config: 154.9491349432737
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 200, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 150.1086:  70%|███████   | 14/20 [04:52<02:05, 20.89s/it]
+Test PPL for this config: 142.49952293085354
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 300, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:19<?, ?it/s]
+Test PPL for this config: 940.0431814170609
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 300, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 158.3699: 100%|██████████| 20/20 [06:37<00:00, 19.87s/it]
+Test PPL for this config: 152.7098870097477
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 300, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 148.3072:  70%|███████   | 14/20 [04:58<02:07, 21.29s/it]
+Test PPL for this config: 140.69298582279598
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 400, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:20<?, ?it/s]
+Test PPL for this config: 941.4751001775829
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 400, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 153.0504: 100%|██████████| 20/20 [06:44<00:00, 20.22s/it]
+Test PPL for this config: 146.67503122572768
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 200, 'emb_size': 400, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 148.8350:  70%|███████   | 14/20 [05:03<02:09, 21.65s/it]
+Test PPL for this config: 140.11910821886545
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Config: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 200, 'lr': 0.1, 'clip': 5, 'n_epochs': 20, 'patience': 3}:   0%|          | 0/20 [00:24<?, ?it/s]
+Test PPL for this config: 878.9054500487614
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 200, 'lr': 1.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 152.7127:  95%|█████████▌| 19/20 [07:49<00:24, 24.71s/it]
+
+
+GRID_SEARCH:
+grid_search_params = {
+    "batch_size_train": [32, 64],
+    "batch_size_dev": [128],  # Puoi lasciarlo fisso se non vuoi variarlo
+    "batch_size_test": [128],  # Idem
+    "hid_size": [300, 400],
+    "emb_size": [400, 500],
+    "lr": [3.0, 4.0],
+    "clip": [5],
+    "n_epochs": [20],  # Fisso, ma puoi variarlo
+    "patience": [3]     # Fisso, ma puoi variarlo
+}
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 400, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 144.6603:  35%|███▌      | 7/20 [03:18<06:08, 28.35s/it]
+Test PPL for this config: 135.52254482688593
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 400, 'lr': 4.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 149.7075:  35%|███▌      | 7/20 [03:18<06:08, 28.31s/it]
+Test PPL for this config: 136.5582595374117
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 500, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 143.5537:  35%|███▌      | 7/20 [03:21<06:14, 28.83s/it]
+Test PPL for this config: 134.20139716824988
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 500, 'lr': 4.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 148.4817:  35%|███▌      | 7/20 [03:21<06:14, 28.80s/it]
+Test PPL for this config: 136.4812550745391
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 400, 'emb_size': 400, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 143.7271:  30%|███       | 6/20 [03:32<08:15, 35.41s/it]
+Test PPL for this config: 134.20374113442944
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 400, 'emb_size': 400, 'lr': 4.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 150.1786:  30%|███       | 6/20 [03:32<08:15, 35.41s/it]
+Test PPL for this config: 132.95081152855144
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 400, 'emb_size': 500, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 149.3528:  35%|███▌      | 7/20 [04:06<07:38, 35.25s/it]
+Test PPL for this config: 132.03528697900862
+
+Running configuration: {'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 400, 'emb_size': 500, 'lr': 4.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 151.3252:  30%|███       | 6/20 [03:35<08:22, 35.88s/it]
+Test PPL for this config: 134.01840939927982
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 400, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 151.5609:  55%|█████▌    | 11/20 [05:08<04:12, 28.02s/it]
+Test PPL for this config: 138.68945561565508
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 400, 'lr': 4.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 153.0607:  35%|███▌      | 7/20 [03:25<06:22, 29.41s/it]
+Test PPL for this config: 139.95128063306547
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 500, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 146.0766:  45%|████▌     | 9/20 [04:20<05:18, 28.98s/it]
+Test PPL for this config: 138.509588832557
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 300, 'emb_size': 500, 'lr': 4.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 154.8472:  50%|█████     | 10/20 [04:46<04:46, 28.64s/it]
+Test PPL for this config: 136.98112916474923
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 400, 'emb_size': 400, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 151.9206:  45%|████▌     | 9/20 [05:16<06:26, 35.16s/it]
+Test PPL for this config: 137.82775709535625
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 400, 'emb_size': 400, 'lr': 4.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 152.1120:  40%|████      | 8/20 [04:44<07:06, 35.53s/it]
+Test PPL for this config: 139.37147399505818
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 400, 'emb_size': 500, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 148.9580:  40%|████      | 8/20 [04:47<07:11, 35.98s/it]
+Test PPL for this config: 136.87444618508573
+
+Running configuration: {'batch_size_train': 64, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 400, 'emb_size': 500, 'lr': 4.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+PPL: 154.2623:  40%|████      | 8/20 [04:47<07:11, 35.96s/it]
+Test PPL for this config: 137.2074067408592
+
+Best configuration:
+{'batch_size_train': 32, 'batch_size_dev': 128, 'batch_size_test': 128, 'hid_size': 400, 'emb_size': 500, 'lr': 3.0, 'clip': 5, 'n_epochs': 20, 'patience': 3}
+Best Test PPL: 132.03528697900862

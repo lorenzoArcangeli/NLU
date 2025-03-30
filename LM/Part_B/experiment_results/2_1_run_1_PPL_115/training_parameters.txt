@@ -1,0 +1,29 @@
+2_1
+
+batch_size_train: 32
+batch_size_dev: 128
+batch_size_test: 128
+hid_size: 500
+emb_size: 500
+lr: 3
+clip: 5
+n_epochs: 100
+patience: 3
+Best Dev PPL: 117.33261748216366
+Best Test PPL: 115.04362567117886
+Optimizer: SGD (
+Parameter Group 0
+    dampening: 0
+    differentiable: False
+    foreach: None
+    lr: 3
+    maximize: False
+    momentum: 0
+    nesterov: False
+    weight_decay: 0
+)
+Model: LM_LSTM_TYING_WEIGHTS(
+  (embedding): Embedding(10001, 500, padding_idx=0)
+  (lstm): LSTM(500, 500, batch_first=True)
+  (output): Linear(in_features=500, out_features=10001, bias=True)
+)
