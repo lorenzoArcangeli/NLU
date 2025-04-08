@@ -126,9 +126,10 @@ Transform each dataset sample to a dict with key:
 -   slots: list of slots in ID sequence
 -   intent: ID of intent class
 '''
+
 class IntentsAndSlots (data.Dataset):
     # Mandatory methods are __init__, __len__ and __getitem__
-    def __init__(self, dataset, lang, unk='unk'):
+    def __init__(self, dataset, lang, tokenizer, unk='unk'):
         self.utterances = []
         self.intents = []
         self.slots = []
@@ -158,14 +159,11 @@ class IntentsAndSlots (data.Dataset):
     def mapping_lab(self, data, mapper):
         return [mapper[x] if x in mapper else mapper[self.unk] for x in data]
     
+    # tokenization with Bert
     def mapping_seq(self, data, mapper): # Map sequences to number
         res = []
         for seq in data:
-            tmp_seq = []
-            for x in seq.split():
-                if x in mapper:
-                    tmp_seq.append(mapper[x])
-                else:
-                    tmp_seq.append(mapper[self.unk])
+            tokens = self.tokenizer.tokenize(seq)
+            tmp_seq = [mapper[token] if token in mapper else mapper[self.unk] for token in tokens]
             res.append(tmp_seq)
         return res

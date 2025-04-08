@@ -8,6 +8,7 @@ from tqdm import tqdm
 import torch.optim as optim
 from functools import partial
 from torch.utils.data import DataLoader
+from transformers import BertTokenizer, BertModel
 
 
 # Main function
@@ -45,12 +46,15 @@ if __name__ == "__main__":
     slots = set(sum([line['slots'].split() for line in corpus],[]))
     intents = set([line['intent'] for line in corpus])
 
-    # Create our datasets
-    train_dataset = IntentsAndSlots(train_raw, lang)
-    dev_dataset = IntentsAndSlots(dev_raw, lang)
-    test_dataset = IntentsAndSlots(test_raw, lang)
-
     lang = Lang(words, intents, slots, cutoff=0)
+    
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    # Create our datasets
+    train_dataset = IntentsAndSlots(train_raw, lang, tokenizer)
+    dev_dataset = IntentsAndSlots(dev_raw, lang, tokenizer)
+    test_dataset = IntentsAndSlots(test_raw, lang, tokenizer)
+
+    
 
     # Dataloader instantiations
     train_loader = DataLoader(train_dataset, batch_size=config['batch_size_train'], collate_fn=collate_fn,  shuffle=True)
@@ -61,7 +65,7 @@ if __name__ == "__main__":
     out_int = len(lang.intent2id)
     vocab_len = len(lang.word2id)
 
-    model = ModelIAS(config['hid_size'], out_slot, out_int, config['emb_size'], vocab_len, pad_index=PAD_TOKEN).to(DEVICE)
+    model = BertFineTunedModelIAS(config['hid_size'], out_slot, out_int, config['emb_size'], vocab_len, pad_index=PAD_TOKEN).to(DEVICE)
     model.apply(init_weights)
 
     optimizer = optim.Adam(model.parameters(), lr=config['lr'])

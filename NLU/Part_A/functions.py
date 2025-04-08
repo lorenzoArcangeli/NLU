@@ -110,7 +110,7 @@ def store_result(task_name, epochs, losses_train, losses_dev,
     
     # Unique folder name
     existing_experiments = len([x for x in os.listdir(results_dir) if x.startswith(task_name)])
-    experiment_title = f"{task_name}_run_{existing_experiments + 1}_PPL_{int(final_ppl)}"
+    experiment_title = f"{task_name}_run_{existing_experiments + 1}_F11-{f1_test:.3f}_Accuracy1-{accuracy_test:.3f}"
     experiment_path = os.path.join(results_dir, experiment_title)
     os.makedirs(experiment_path, exist_ok=True)
 
@@ -128,18 +128,16 @@ def store_result(task_name, epochs, losses_train, losses_dev,
     with open(output_file, "w") as f:
         f.write(f"Experiment: {task_name}\n\n")
         f.write(f"Slot F1: {f1_test}\n")
-        f.write(f"Slot Accuracy: {accuracy_test}\n\n")
+        f.write(f"Intent Accuracy: {accuracy_test}\n\n")
         for param_name, param_value in config.items():
             f.write(f"{param_name} = {param_value}\n")
-        f.write(f"Optimal Dev Perplexity: {best_ppl}\n")
-        f.write(f"Final Test Perplexity: {final_ppl}\n")
         f.write(f"Optimization Method: {opt_method}\n")
         f.write(f"Model Type: {model}\n")
 
     # Save the best model 
-    saving_object = {"epoch": len(sampled_epochs), 
+    saving_object = {"epoch": len(epochs), 
                      "model": best_model.state_dict(), 
-                     "optimizer": optimizer.state_dict(), 
+                     "optimizer": opt_method.state_dict(), 
                      "slot2id": lang.slot2id, 
                      "intent2id": lang.intent2id}
     torch.save(saving_object, os.path.join(experiment_path, "trained_model.pt"))

@@ -4,12 +4,14 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
 import torch.nn as nn
 import torch
+from transformers import pipeline
+from transformers import BertConfig, BertModel
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 from transformers import BertModel, BertTokenizer
 # Vanilla
 class ModelIAS(nn.Module):
 
-    def __init__(self, hid_size, out_slot, out_int, emb_size, vocab_len, n_layer=1, pad_index=0, bidirectional=bidirectional_mode, dropout_mode=False, dropout=0.5):
+    def __init__(self, hid_size, out_slot, out_int, emb_size, vocab_len, n_layer=1, pad_index=0, bidirectional=bidirectional_mode, dropout_mode=False, dropout=0.7):
         super(ModelIAS, self).__init__()
         # hid_size = Hidden size
         # out_slot = number of slots (output size for slot filling)
@@ -20,7 +22,7 @@ class ModelIAS(nn.Module):
         self.utt_encoder = nn.LSTM(emb_size, hid_size, n_layer, bidirectional=bidirectional_mode, batch_first=True)    
         self.dropout_mode = dropout_mode
         if self.dropout_mode:
-            self.dropout = nn.Dropout(0.1) # → (possibly after the LSTM output or before the linear layers) to prevent overfitting
+            self.dropout = nn.Dropout(dropout) # → (possibly after the LSTM output or before the linear layers) to prevent overfitting
         if bidirectional:
             hid_size=hid_size*2
         self.slot_out = nn.Linear(hid_size, out_slot)
@@ -62,9 +64,46 @@ class ModelIAS(nn.Module):
         return slots, intent
 
 
+class BertFineTunedModelIAS(nn.Module):
+    def __init__(self, hid_size, out_slot, out_int, emb_size, vocab_len, n_layer=1, pad_index=0, bidirectional=bidirectional_mode, dropout_mode=False, dropout=0.7):
+        super(BertFineTunedModelIAS, self).__init__()
+
+        self.bert_model=BertModel.from_pretrained('bert-base-uncased')
+        self.dropout = nn.Dropout(dropout)
+        self.slot_out = nn.Linear(hid_size, out_slot)
+        self.intent_out = nn.Linear(hid_size, out_int)
+
+    def forward(self, utterance, seq_lengths):        
+        
+        # pack_padded_sequence avoid computation over pad tokens reducing the computational cost
+        packed_input = pack_padded_sequence(utt_emb, seq_lengths.cpu().numpy(), batch_first=True)
+        # Process the batch
+        packed_output, (last_hidden, cell) = self.bert_model(packed_input) 
+
+        # Unpack the sequence
+        utt_encoded, input_sizes = pad_packed_sequence(packed_output, batch_first=True)
+
+        # Apply dropout
+        utt_encoded = self.dropout(utt_encoded)
+
+        # Get the last hidden state
+        last_hidden = torch.cat((last_hidden[0], last_hidden[1]), dim=1)
+        
+        # Compute slot logits
+        slots = self.slot_out(utt_encoded)
+        # Compute intent logits
+        intent = self.intent_out(last_hidden)
+        
+        # Slot size: batch_size, seq_len, classes 
+        slots = slots.permute(0,2,1) # We need this for computing the loss
+        # Slot size: batch_size, classes, seq_len
+        return slots, intent
+
+
+
 # BERT-based model for joint intent classification and slot filling
 class BertModelIAS(nn.Module):
-    def __init__(self, out_slot, out_int, bert_model_name="bert-base-uncased", dropout=0.1):
+    def __init__(self, out_slot, out_int, bert_model_name="bert-base-uncased", dropout=0.5):
         """
         Initialize the BERT-based model for joint intent classification and slot filling
         

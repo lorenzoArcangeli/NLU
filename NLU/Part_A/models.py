@@ -1,13 +1,10 @@
 import torch.nn as nn
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
-
+import torch
 # Vanilla
 class ModelIAS(nn.Module):
 
-    def __init__(self, hid_size, out_slot, out_int, emb_size, vocab_len, n_layer=1, pad_index=0, bidirectional_mode=False, dropout_mode=False, dropout=0.5):
-        super(ModelIAS, self).__init__()
-        # hid_size = Hidden size
-        # out_slot = number of slots (output size for slot filling)
+    def __init__(self, hid_size, out_slot, out_int, emb_size, vocab_len, n_layer=1, pad_index=0, bidirectional_mode=False, dropout_mode=False, dropout=0.7):
         super(ModelIAS, self).__init__()
         # hid_size = Hidden size
         # out_slot = number of slots (output size for slot filling)
@@ -18,8 +15,8 @@ class ModelIAS(nn.Module):
         self.utt_encoder = nn.LSTM(emb_size, hid_size, n_layer, bidirectional=bidirectional_mode, batch_first=True)    
         self.dropout_mode = dropout_mode
         if self.dropout_mode:
-            self.dropout = nn.Dropout(0.1) # → (possibly after the LSTM output or before the linear layers) to prevent overfitting
-        if bidirectional:
+            self.dropout = nn.Dropout(dropout) 
+        if bidirectional_mode:
             hid_size=hid_size*2
         self.slot_out = nn.Linear(hid_size, out_slot)
         self.intent_out = nn.Linear(hid_size, out_int)

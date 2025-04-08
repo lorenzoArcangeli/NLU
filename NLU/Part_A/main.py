@@ -17,13 +17,22 @@ if __name__ == "__main__":
     DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
     os.environ['CUDA_LAUNCH_BLOCKING'] = "1" # Used to report errors on CUDA sid
 
+    # Slot F1:  0.9331215810834657 con: 32,64,64,500,500,0.0001,5,200,3
+    # Intent Accuracy: 0.9462486002239642
+
+    # Slot F1:  0.931810193321617 con: 128,32,32,650,650,0.0001,5,200,3
+     #Intent Accuracy: 0.9496080627099664
+
+    # Slot F1:  0.9222961148057403 con originali tranne lr=0.001
+    # Intent Accuracy: 0.9361702127659575
+
     # Configuration/hyeperparameters
     config = {
-        "batch_size_train": 32, #original 128
-        "batch_size_dev": 128, #original 64
-        "batch_size_test": 128, #original 64
-        "hid_size": 500, #original 200
-        "emb_size": 500, #original 300
+        "batch_size_train": 128, #original 128
+        "batch_size_dev": 64, #original 64
+        "batch_size_test": 64, #original 64
+        "hid_size": 650, #original 200
+        "emb_size": 650, #original 300
         "lr": 0.0001, 
         "clip": 5, 
         "n_epochs": 200,
@@ -45,12 +54,14 @@ if __name__ == "__main__":
     slots = set(sum([line['slots'].split() for line in corpus],[]))
     intents = set([line['intent'] for line in corpus])
 
+    lang = Lang(words, intents, slots, cutoff=0)
+
+
     # Create our datasets
     train_dataset = IntentsAndSlots(train_raw, lang)
     dev_dataset = IntentsAndSlots(dev_raw, lang)
     test_dataset = IntentsAndSlots(test_raw, lang)
 
-    lang = Lang(words, intents, slots, cutoff=0)
 
     # Dataloader instantiations
     train_loader = DataLoader(train_dataset, batch_size=config['batch_size_train'], collate_fn=collate_fn,  shuffle=True)
@@ -61,7 +72,7 @@ if __name__ == "__main__":
     out_int = len(lang.intent2id)
     vocab_len = len(lang.word2id)
 
-    model = ModelIAS(config['hid_size'], out_slot, out_int, config['emb_size'], vocab_len, pad_index=PAD_TOKEN).to(DEVICE)
+    model = ModelIAS(config['hid_size'], out_slot, out_int, config['emb_size'], vocab_len, pad_index=PAD_TOKEN, bidirectional_mode=True, dropout_mode=True).to(DEVICE)
     model.apply(init_weights)
 
     optimizer = optim.Adam(model.parameters(), lr=config['lr'])
@@ -72,6 +83,7 @@ if __name__ == "__main__":
     losses_dev = []
     sampled_epochs = []
     best_f1 = 0
+    best_model = None
     patience = config['patience']
     for x in tqdm(range(1,config['n_epochs'])):
         loss = train_loop(train_loader, optimizer, criterion_slots, 
@@ -88,6 +100,7 @@ if __name__ == "__main__":
             if f1 > best_f1:
                 best_f1 = f1
                 # Here you should save the model
+                best_model = copy.deepcopy(model).to('cpu')
                 patience = 3
             else:
                 patience -= 1
@@ -97,13 +110,13 @@ if __name__ == "__main__":
     results_test, intent_test, _ = eval_loop(test_loader, criterion_slots, 
                                             criterion_intents, model, lang)    
     f1_test= results_test['total']['f']
-    accuracy_test= results_test['accuracy']
+    accuracy_test= intent_test['accuracy']
     print('Slot F1: ',f1_test)
     print('Intent Accuracy:', accuracy_test)
 
-    '''
+    
     # Save results
-    task_name = "1_1"
-    store_result(task_name, epochs, losses_train, losses_dev,
-                opt_method, model, best_model, config, f1_test, accuracy_test, lang)
-    '''
+    task_name = "Dropout"
+    store_result(task_name, sampled_epochs, losses_train, losses_dev,
+                optimizer, model, best_model, config, f1_test, accuracy_test, lang)
+    
