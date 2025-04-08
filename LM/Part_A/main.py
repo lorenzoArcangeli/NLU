@@ -1,6 +1,6 @@
-from LM.Part_1.utils import *
+from utils import *
 from models import *
-from LM.Part_1.functions import * 
+from functions import * 
 import os
 import copy
 import numpy as np
@@ -16,7 +16,7 @@ if __name__ == "__main__":
     # Device
     DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-    # Configuration
+    # Configuration/hyeperparameters
     config = {
         "batch_size_train": 32,
         "batch_size_dev": 128,

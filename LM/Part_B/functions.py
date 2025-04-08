@@ -114,7 +114,7 @@ def store_result(task_name, epochs, train_loss_values, dev_loss_values,
     # Plot and save loss curves
     plt.figure()
     plt.plot(epochs, train_loss_values, label='Training', marker='o')  
-    plt.plot(epochs, dev_loss_values, label='Development', marker='s')
+    plt.plot(epochs, dev_loss_values, label='Development', marker='o')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.legend()
@@ -123,8 +123,8 @@ def store_result(task_name, epochs, train_loss_values, dev_loss_values,
 
     # Plot and save perplexity curves
     plt.figure()
-    plt.plot(epochs, train_ppl_values, label='Training', marker='o')
-    plt.plot(epochs, dev_ppl_values, label='Development', marker='s')
+    #plt.plot(epochs, train_loss_values, label='Training', marker='o')  
+    plt.plot(epochs, dev_ppl_values, label='Development', marker='o')
     plt.xlabel('Epochs')
     plt.ylabel('Perplexity')
     plt.grid(True)

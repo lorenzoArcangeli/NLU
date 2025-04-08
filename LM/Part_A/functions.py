@@ -106,27 +106,29 @@ def store_result(task_name, epochs, train_loss_values, dev_loss_values,
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
     
-    # Unique folder name
+    # Generate unique folder name
     existing_experiments = len([x for x in os.listdir(results_dir) if x.startswith(task_name)])
     experiment_title = f"{task_name}_run_{existing_experiments + 1}_PPL_{int(final_ppl)}"
     experiment_path = os.path.join(results_dir, experiment_title)
     os.makedirs(experiment_path, exist_ok=True)
 
-    # Plot and save loss curves
+        # Plot and save loss curves
     plt.figure()
-    plt.plot(epochs, train_loss_values, '-', label='Training')
-    plt.plot(epochs, dev_loss_values, '-', label='Development')
+    plt.plot(epochs, train_loss_values, label='Training', marker='o')  
+    plt.plot(epochs, dev_loss_values, label='Development', marker='o')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.legend()
+    plt.grid(True)
     plt.savefig(os.path.join(experiment_path, "Loss_Training_vs_Dev.pdf"))
 
     # Plot and save perplexity curves
     plt.figure()
-    plt.plot(epochs, train_ppl_values, '-', label='Training')
-    plt.plot(epochs, dev_ppl_values, '-', label='Development')
+    #plt.plot(epochs, train_loss_values, label='Training', marker='o')  
+    plt.plot(epochs, dev_ppl_values, label='Development', marker='o')
     plt.xlabel('Epochs')
     plt.ylabel('Perplexity')
+    plt.grid(True)
     plt.legend()
     plt.savefig(os.path.join(experiment_path, "Perplexity_Training_vs_Dev.pdf"))
 

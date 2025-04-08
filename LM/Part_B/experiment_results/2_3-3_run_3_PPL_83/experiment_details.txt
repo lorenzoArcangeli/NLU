@@ -1,0 +1,32 @@
+Experiment: 2_3-3
+
+batch_size_train = 32
+batch_size_dev = 64
+batch_size_test = 64
+hid_size = 650
+emb_size = 650
+lr = 4
+clip = 3
+n_epochs = 100
+patience = 5
+Optimal Dev Perplexity: 86.58190622934046
+Final Test Perplexity: 83.72754364207964
+Optimization Method: ASGD (
+Parameter Group 0
+    alpha: 0.75
+    capturable: False
+    differentiable: False
+    foreach: None
+    lambd: 0.0
+    lr: 0.4
+    maximize: False
+    t0: 0
+    weight_decay: 1.2e-06
+)
+Model Type: LM_LSTM_VARIATIONAL_DROPOUT(
+  (embedding): Embedding(10001, 650, padding_idx=0)
+  (emb_var_dropout): VariationalDropoutLayer()
+  (lstm): LSTM(650, 650, batch_first=True)
+  (out_var_dropout): VariationalDropoutLayer()
+  (output): Linear(in_features=650, out_features=10001, bias=True)
+)
